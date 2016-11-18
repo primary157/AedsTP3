@@ -1,0 +1,4 @@
+#ifndef RECQUICK_H_INCLUDED
+#define RECQUICK_H_INCLUDED
+
+#endif

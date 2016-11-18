@@ -1,0 +1,4 @@
+#ifndef ITEINTQUICK_H_INCLUDED
+#define ITEINTQUICK_H_INCLUDED
+
+#endif

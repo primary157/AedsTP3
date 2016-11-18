@@ -1,0 +1,10 @@
+include_directories(${CMAKE_SOURCE_DIR}/main/)
+include_directories(${CMAKE_SOURCE_DIR}/quicksorts/)
+link_directories(${CMAKE_SOURCE_DIR}/main/)
+link_directories(${CMAKE_SOURCE_DIR}/quicksorts/)
+
+file(GLOB LIB_SOURCES ./*.c)
+file(GLOB LIB_HEADERS ./*.h)
+add_executable(RunQuickSorts ${LIB_SOURCES} ${LIB_HEADERS})
+target_link_libraries(RunQuickSorts QuickSorts)
+target_compile_options(RunQuickSorts PRIVATE -Ofast)

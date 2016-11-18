@@ -1,0 +1,4 @@
+#ifndef ITEQUICK_H_INCLUDED
+#define ITEQUICK_H_INCLUDED
+
+#endif

@@ -1,0 +1,4 @@
+#ifndef INSQUICK_H_INCLUDED
+#define INSQUICK_H_INCLUDED
+
+#endif
