@@ -20,7 +20,7 @@ int confereSintaxeArquivoEntrada(FILE* file, int **n, int tam){
 	}
 	return 1;
 }
-void printaTempoDecorrido(struct rusage *res){
+void printaTempoDecorrido(struct rusage *res,FILE *file){
 	//double utime, stime, total_time;
 	if (getrusage(RUSAGE_SELF,res) != 0) {
 		perror("getrusage failed\n");
@@ -28,7 +28,7 @@ void printaTempoDecorrido(struct rusage *res){
 	//utime = (double)(*res).ru_utime.tv_sec + 1.e-6 * (double) (*res).ru_utime.tv_usec;
 	//stime = (double)(*res).ru_stime.tv_sec + 1.e-6 * (double) (*res).ru_stime.tv_usec;
 	//total_time = utime + stime;
-	printf("User time %.3lf, System time %.3lf, Total time %.3lf\n",(double)(*res).ru_utime.tv_sec + 1.e-6 * (double) (*res).ru_utime.tv_usec,
+	fprintf(file,"User time %.3lf, System time %.3lf, Total time %.3lf\n",(double)(*res).ru_utime.tv_sec + 1.e-6 * (double) (*res).ru_utime.tv_usec,
 									(double)(*res).ru_stime.tv_sec + 1.e-6 * (double) (*res).ru_stime.tv_usec,
 									((double)(*res).ru_utime.tv_sec + 1.e-6 * (double) (*res).ru_utime.tv_usec)+((double)(*res).ru_stime.tv_sec + 1.e-6 * (double) (*res).ru_stime.tv_usec));
 	
@@ -79,39 +79,39 @@ int main(int argc, const char *argv[]){
 						//Aqui gero os valores das N entradas da primeira instrução
 						itens[j].chave = rand()%100000000;
 					}
-					printaTempoDecorrido(&resources);
+					printaTempoDecorrido(&resources,outputfile);
 					//Aqui ordeno a lista de entradas com cada quicksort e o tempo é calculado ao fim de cada ordenação
 					//QuickSort 1
 					printf("Aqui\n");
 					initTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					ordena(&lista_aux);
 					
-					printaTempoDecorrido(&resources);
+					printaTempoDecorrido(&resources,outputfile);
 					//QuickSort 2
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 2
 
-					printaTempoDecorrido(&resources);
+					printaTempoDecorrido(&resources,outputfile);
 					//QuickSort 3
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 3
 
-					printaTempoDecorrido(&resources);
+					printaTempoDecorrido(&resources,outputfile);
 					//QuickSort 4
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 4
 
-					printaTempoDecorrido(&resources);
+					printaTempoDecorrido(&resources,outputfile);
 					//QuickSort 5
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 5
 
-					printaTempoDecorrido(&resources);
+					printaTempoDecorrido(&resources,outputfile);
 					//QuickSort 6
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 6
 
-					printaTempoDecorrido(&resources);
+					printaTempoDecorrido(&resources,outputfile);
 					//Fim do calculo de tempo de ordenação
 
 					for (i = 1; i < qntd_n_input; i++) {
@@ -131,32 +131,32 @@ int main(int argc, const char *argv[]){
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						ordena(&lista_aux);
 							
-						printaTempoDecorrido(&resources);
+						printaTempoDecorrido(&resources,outputfile);
 						//QuickSort 2
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 2
 
-						printaTempoDecorrido(&resources);
+						printaTempoDecorrido(&resources,outputfile);
 						//QuickSort 3
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 3
 
-						printaTempoDecorrido(&resources);
+						printaTempoDecorrido(&resources,outputfile);
 						//QuickSort 4
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 4
 
-						printaTempoDecorrido(&resources);
+						printaTempoDecorrido(&resources,outputfile);
 						//QuickSort 5
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 5
 
-						printaTempoDecorrido(&resources);
+						printaTempoDecorrido(&resources,outputfile);
 						//QuickSort 6
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 6
 
-						printaTempoDecorrido(&resources);
+						printaTempoDecorrido(&resources,outputfile);
 						//Fim do calculo de tempo de ordenação
 					}
 					free(itens);								//Desaloca espaço de itens
