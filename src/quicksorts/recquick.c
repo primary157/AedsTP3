@@ -41,8 +41,3 @@ void ordena(TLista *lista){
 		_ordena(i,lista->dir,lista);
 	}
 }
-void initTLista(TLista *lista,TItem *itens,int n){
-	lista->itens = itens;
-	lista->esq = 0;
-	lista->dir = n-1;
-}

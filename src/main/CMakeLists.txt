@@ -1,5 +1,5 @@
-include_directories(${CMAKE_SOURCE_DIR}/main/)
-include_directories(${CMAKE_SOURCE_DIR}/quicksorts/)
+include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/main/)
+include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/quicksorts/)
 link_directories(${CMAKE_SOURCE_DIR}/main/)
 link_directories(${CMAKE_SOURCE_DIR}/quicksorts/)
 
