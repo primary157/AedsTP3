@@ -79,10 +79,12 @@ int main(int argc, const char *argv[]){
 						//Aqui gero os valores das N entradas da primeira instrução
 						itens[j].chave = rand()%100000000;
 					}
+					printaTempoDecorrido(&resources);
 					//Aqui ordeno a lista de entradas com cada quicksort e o tempo é calculado ao fim de cada ordenação
 					//QuickSort 1
+					printf("Aqui\n");
 					initTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
-					//ordena(&lista_aux);
+					ordena(&lista_aux);
 					
 					printaTempoDecorrido(&resources);
 					//QuickSort 2
@@ -113,7 +115,7 @@ int main(int argc, const char *argv[]){
 					//Fim do calculo de tempo de ordenação
 
 					for (i = 1; i < qntd_n_input; i++) {
-						if((itens = (TItem*)realloc(itens,n_input[0]*sizeof(TItem)))==NULL){		//Realoca espaço para itens
+						if((itens = (TItem*)realloc(itens,n_input[i]*sizeof(TItem)))==NULL){		//Realoca espaço para itens
 							fprintf(stderr,"Nao foi possivel realocar espaco para itens do tamanho %d\n",n_input[i]);
 							fclose(inputfile);
 							fclose(outputfile);
@@ -125,8 +127,9 @@ int main(int argc, const char *argv[]){
 						}
 						//Aqui ordeno a lista de entradas com cada quicksort e o tempo é calculado ao fim de cada ordenação
 						//QuickSort 1
+						printf("Aqui\n");
 						reinitTLista(&lista_aux,itens,n_input[i]);
-						//ordena(&lista_aux);
+						ordena(&lista_aux);
 							
 						printaTempoDecorrido(&resources);
 						//QuickSort 2

@@ -1,8 +1,8 @@
 #include "recquick.h"
-void particao(TLista *lista, int *i, int *j){
+void particao(int esq, int dir, TLista *lista, int *i, int *j){
 	TItem pivo, aux;
-	*i = lista->esq;
-	*j = lista->dir;
+	*i = esq;
+	*j = dir;
 	pivo = lista->itens[(*i+*j)/2];
 	do {
 		while (pivo.chave > lista->itens[*i].chave) {
@@ -23,7 +23,7 @@ void particao(TLista *lista, int *i, int *j){
 }
 void _ordena(int esq, int dir, TLista *lista){
 	int i,j;
-	particao(lista,&i,&j);
+	particao(esq,dir,lista,&i,&j);
 	if(esq < j){
 		_ordena(esq, j, lista);
 	}
@@ -33,7 +33,7 @@ void _ordena(int esq, int dir, TLista *lista){
 }
 void ordena(TLista *lista){
 	int i,j;
-	particao(lista,&i,&j);
+	particao(lista->esq,lista->dir,lista,&i,&j);
 	if(lista->esq < j){
 		_ordena(lista->esq, j, lista);
 	}
