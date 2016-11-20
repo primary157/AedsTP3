@@ -1,5 +1,5 @@
 #include "itequick.h"
-
+/*
 void particao(TLista *lista, int *i, int *j){
 	TItem pivo, aux;
 	*i = lista->esq;
@@ -21,8 +21,8 @@ void particao(TLista *lista, int *i, int *j){
 		}
 	} while (*i <= *j);
 }
-
-void ordena(TLista *lista){
+*/
+void it_ordena(TLista *lista){
 	int i, j, k = 0;
 	int *vecEsq, *vecDir;
 	vecEsq = (int*)malloc(lista->dir*sizeof(int));

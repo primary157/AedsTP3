@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "../quicksorts/recquick.h"
+#include "../quicksorts/itequick.h"
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
