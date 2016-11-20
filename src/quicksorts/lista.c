@@ -1,6 +1,7 @@
 #include "lista.h"
 void initTLista(TLista *lista,TItem *itens,int n){
 	int i;
+	lista->sz = n;
 	lista->itens = (TItem*)malloc(n*sizeof(TItem));
 	for (i = 0; i < n; i++) {
 		lista->itens[i] = itens[i];
@@ -10,6 +11,7 @@ void initTLista(TLista *lista,TItem *itens,int n){
 }
 void reinitTLista(TLista *lista,TItem *itens,int n){
 	int i;
+	lista->sz = n;
 	lista->itens = (TItem*)realloc(lista->itens,n*sizeof(TItem));
 	for (i = 0; i < n; i++) {
 		lista->itens[i] = itens[i];

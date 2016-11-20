@@ -5,7 +5,7 @@ typedef struct{
 	int chave;
 } TItem;
 typedef struct{
-	int esq, dir;
+	int esq, dir, sz;
 	TItem *itens;
 } TLista;
 void initTLista(TLista *lista,TItem *itens,int n);
