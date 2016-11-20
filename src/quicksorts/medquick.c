@@ -1,11 +1,14 @@
 #include "medquick.h"
 #define K 3
 void med_particao(TLista *lista, int *i, int *j, int k){
-	int *ipivo;
+	int *ipivo, c;
 	TItem pivo, aux;
 	*i = lista->esq;
 	*j = lista->dir;
 	ipivo = (int*)malloc(k*sizeof(int));
+	for (c = 0; c < k; c++) {
+		ipivo[c] = rand()%(*j - *i +1) + *i;
+	}
 	//ordena ipivo pelas chaves em lista
 	insSort(lista,ipivo,k);
 	//Pega o do meio
