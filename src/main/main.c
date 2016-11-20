@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "../quicksorts/recquick.h"
 #include "../quicksorts/itequick.h"
+#include "../quicksorts/medquick.h"
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
@@ -83,14 +84,14 @@ int main(int argc, const char *argv[]){
 					printaTempoDecorrido(&resources,outputfile);
 					//Aqui ordeno a lista de entradas com cada quicksort e o tempo é calculado ao fim de cada ordenação
 					//QuickSort 1
-					printf("Aqui\n");
 					initTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					ordena(&lista_aux);
 					
 					printaTempoDecorrido(&resources,outputfile);
 					//QuickSort 2
-					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
+					reinitTLista(&lista_aux,itens,n_input[0]);
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 2
+					med_ordena(&lista_aux);
 
 					printaTempoDecorrido(&resources,outputfile);
 					//QuickSort 3
@@ -104,7 +105,6 @@ int main(int argc, const char *argv[]){
 
 					printaTempoDecorrido(&resources,outputfile);
 					//QuickSort 5
-					printf("Aqui\n");
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 5
 					it_ordena(&lista_aux);
@@ -136,8 +136,10 @@ int main(int argc, const char *argv[]){
 							
 						printaTempoDecorrido(&resources,outputfile);
 						//QuickSort 2
+						printf("Aqui\n");
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 2
+						med_ordena(&lista_aux);
 
 						printaTempoDecorrido(&resources,outputfile);
 						//QuickSort 3

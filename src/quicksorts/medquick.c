@@ -1,14 +1,36 @@
 #include "medquick.h"
 #define K 3
 void med_particao(TLista *lista, int *i, int *j, int k){
-	int ipivo = 0, c;
+	int *ipivo, c, med = 0, maior = -1, menor = -1;
 	TItem pivo, aux;
 	*i = lista->esq;
 	*j = lista->dir;
-	for (c = 0; c < k; c++) {
-		ipivo += rand()%(lista->sz);
+	ipivo = (int*)malloc(k*sizeof(int));
+	//encontra a media
+	for (c = 0; c < k && c < (*j - *i + 1); c++) {
+		ipivo[c] = rand()%(*j - *i + 1) + *i;
+		med += lista->itens[ipivo[c]].chave;
 	}
-	pivo = lista->itens[ipivo/k];
+	med /= k;
+	//encontra valores adjacentes a media no vetor
+	for (c = 0; c < k && c < (*j - *i +1); c++) {
+		if(lista->itens[ipivo[c]].chave > med){
+			if(maior == -1){
+				maior = ipivo[c];
+			} else if(lista->itens[ipivo[c]].chave < maior){
+				maior = ipivo[c];
+			}
+		} else if(lista->itens[ipivo[c]].chave < med){
+			if(menor == -1){
+				menor = ipivo[c];
+			} else if(lista->itens[ipivo[c]].chave > menor){
+				menor = ipivo[c];
+			}
+		}
+	}
+	//encontra valor mais proximo da media e o atribui a pivo
+	free(ipivo);
+	pivo = lista->itens[(lista->itens[maior].chave - med) < (med - lista->itens[menor].chave) ? maior : menor];
 	do {
 		while (pivo.chave > lista->itens[*i].chave) {
 			(*i)++;
@@ -26,7 +48,7 @@ void med_particao(TLista *lista, int *i, int *j, int k){
 	} while (*i <= *j);
 
 }
-void ordena(TLista *lista){
+void med_ordena(TLista *lista){
 	int i,j, sEsq, sDir;
 	med_particao(lista,&i,&j,K);
 	if(lista->esq < j){
