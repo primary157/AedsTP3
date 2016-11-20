@@ -7,13 +7,18 @@ void med_particao(TLista *lista, int *i, int *j, int k){
 	*j = lista->dir;
 	ipivo = (int*)malloc(k*sizeof(int));
 	//encontra a media
-	for (c = 0; c < k && c < (*j - *i + 1); c++) {
-		ipivo[c] = rand()%(*j - *i + 1) + *i;
-		med += lista->itens[ipivo[c]].chave;
+	for (c = 0; c < k; c++) {
+		if(c < (*j - *i + 1)){
+			ipivo[c] = rand()%(*j - *i + 1) + *i;
+			med += lista->itens[ipivo[c]].chave;
+		} else{
+			k = (*j - *i + 1);
+			break;
+		}
 	}
 	med /= k;
 	//encontra valores adjacentes a media no vetor
-	for (c = 0; c < k && c < (*j - *i +1); c++) {
+	for (c = 0; c < k; c++) {
 		if(lista->itens[ipivo[c]].chave > med){
 			if(maior == -1){
 				maior = ipivo[c];
