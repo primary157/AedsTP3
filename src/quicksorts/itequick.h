@@ -1,4 +1,9 @@
-#ifndef ITEQUICK_H_INCLUDED
-#define ITEQUICK_H_INCLUDED
+#ifndef RECQUICK_H_INCLUDED
+#define RECQUICK_H_INCLUDED
 
-#endif
+#include "lista.h"
+#include "recquick.h"
+
+//void particao(TLista *lista, int *i, int *j); //iteradores i e j são criados dentro de ordena!!
+void it_ordena(TLista *lista);
+ #endif
