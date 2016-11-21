@@ -28,7 +28,7 @@ void particao(TLista *lista, int *i, int *j){
 void ordena(TLista *lista){
     int i, j, top = 0;
 	int *stack;
-	stack = (int*)malloc(lista->dir*sizeof(int));
+	stack = (int*)malloc(lista->dir*(4)*sizeof(int));
     particao(lista, &i,&j);
     //VERIFICA A ORDEM EM QUE DEVE SER EMPILHADA.
     //A MAIOR PARTIÇÃO É EMPILHADA PRIMEIRO
