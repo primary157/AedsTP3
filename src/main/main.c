@@ -7,6 +7,11 @@
 #include <time.h>
 #include <string.h>
 #include <sys/resource.h>
+typedef struct{
+	double u;
+	double s;
+	double t;
+}TIMES;
 int confereSintaxeArquivoEntrada(FILE* file, int **n, int tam){
 	while(!feof(file)){
 		if(tam != 0){
@@ -23,21 +28,23 @@ int confereSintaxeArquivoEntrada(FILE* file, int **n, int tam){
 	}
 	return 1;
 }
-void printaTempoDecorrido(struct rusage *res,FILE *file){
+TIMES printaTempoDecorrido(struct rusage *res,FILE *file,char *nome,TIMES tempos){
 	//double utime, stime, total_time;
+	TIMES times;
 	if (getrusage(RUSAGE_SELF,res) != 0) {
 		perror("getrusage failed\n");
 	}
-	//utime = (double)(*res).ru_utime.tv_sec + 1.e-6 * (double) (*res).ru_utime.tv_usec;
-	//stime = (double)(*res).ru_stime.tv_sec + 1.e-6 * (double) (*res).ru_stime.tv_usec;
-	//total_time = utime + stime;
-	fprintf(file,"User time %.3lf, System time %.3lf, Total time %.3lf\n",(double)(*res).ru_utime.tv_sec + 1.e-6 * (double) (*res).ru_utime.tv_usec,
-									(double)(*res).ru_stime.tv_sec + 1.e-6 * (double) (*res).ru_stime.tv_usec,
-									((double)(*res).ru_utime.tv_sec + 1.e-6 * (double) (*res).ru_utime.tv_usec)+((double)(*res).ru_stime.tv_sec + 1.e-6 * (double) (*res).ru_stime.tv_usec));
+	times.u = (double)(*res).ru_utime.tv_sec + 1.e-6 * (double) (*res).ru_utime.tv_usec - tempos.u;
+	times.s = (double)(*res).ru_stime.tv_sec + 1.e-6 * (double) (*res).ru_stime.tv_usec - tempos.s;
+	times.t = times.u + times.s;
+	fprintf(file,"%s User time %.3lf, System time %.3lf, Total time %.3lf\n",nome,times.u,times.s,times.t);
+	return times;
 	
 }
 int main(int argc, const char *argv[]){
 	struct rusage resources;
+	TIMES time_aux;
+	time_aux.u = time_aux.s = time_aux.t = 0.0;
 
 	FILE *inputfile, *outputfile;
 	TItem *itens;
@@ -82,44 +89,44 @@ int main(int argc, const char *argv[]){
 						//Aqui gero os valores das N entradas da primeira instrução
 						itens[j].chave = rand()%100000000;
 					}
-					printaTempoDecorrido(&resources,outputfile);
+					time_aux = printaTempoDecorrido(&resources,outputfile,"Começo",time_aux);
 					//Aqui ordeno a lista de entradas com cada quicksort e o tempo é calculado ao fim de cada ordenação
 					//QuickSort 1
 					
 					initTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					ordena(&lista_aux);
 					
-					printaTempoDecorrido(&resources,outputfile);
+					time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 1",time_aux);
 					//QuickSort 2
 					printf("Aqui\n");
 					reinitTLista(&lista_aux,itens,n_input[0]);
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 2
 					med_ordena(&lista_aux);
 
-					printaTempoDecorrido(&resources,outputfile);
+					time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 2",time_aux);
 					//QuickSort 3
 					printf("Aqui\n");
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 3
 					ins_ordena(&lista_aux);
 
-					printaTempoDecorrido(&resources,outputfile);
+					time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 3",time_aux);
 					//QuickSort 4
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 4
 
-					printaTempoDecorrido(&resources,outputfile);
+					time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 4",time_aux);
 					//QuickSort 5
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 5
 					it_ordena(&lista_aux);
 
-					printaTempoDecorrido(&resources,outputfile);
+					time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 5",time_aux);
 					//QuickSort 6
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 6
 
-					printaTempoDecorrido(&resources,outputfile);
+					time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 6",time_aux);
 					//Fim do calculo de tempo de ordenação
 
 					for (i = 1; i < qntd_n_input; i++) {
@@ -138,37 +145,37 @@ int main(int argc, const char *argv[]){
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						ordena(&lista_aux);
 							
-						printaTempoDecorrido(&resources,outputfile);
+						time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 1",time_aux);
 						//QuickSort 2
 						printf("Aqui\n");
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 2
 						med_ordena(&lista_aux);
 
-						printaTempoDecorrido(&resources,outputfile);
+						time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 2",time_aux);
 						//QuickSort 3
 						printf("Aqui\n");
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 3
 						ins_ordena(&lista_aux);
 
-						printaTempoDecorrido(&resources,outputfile);
+						time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 3",time_aux);
 						//QuickSort 4
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 4
 
-						printaTempoDecorrido(&resources,outputfile);
+						time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 4",time_aux);
 						//QuickSort 5
 						reinitTLista(&lista_aux,itens,n_input[i]);	//reseto lista para estado inicial
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 5
 						it_ordena(&lista_aux);
 
-						printaTempoDecorrido(&resources,outputfile);
+						time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 5",time_aux);
 						//QuickSort 6
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 6
 
-						printaTempoDecorrido(&resources,outputfile);
+						time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 6",time_aux);
 						//Fim do calculo de tempo de ordenação
 					}
 					free(itens);								//Desaloca espaço de itens
