@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "../quicksorts/recquick.h"
 #include "../quicksorts/itequick.h"
+#include "../quicksorts/recintquick.h"
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
@@ -111,9 +112,10 @@ int main(int argc, const char *argv[]){
 
 					printaTempoDecorrido(&resources,outputfile);
 					//QuickSort 6
+					printf("Aqui\n");
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 6
-
+					rec_int_ordena(&lista_aux);
 					printaTempoDecorrido(&resources,outputfile);
 					//Fim do calculo de tempo de ordenação
 
@@ -158,8 +160,10 @@ int main(int argc, const char *argv[]){
 
 						printaTempoDecorrido(&resources,outputfile);
 						//QuickSort 6
+						printf("Aqui\n");
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 6
+						rec_int_ordena(&lista_aux);
 
 						printaTempoDecorrido(&resources,outputfile);
 						//Fim do calculo de tempo de ordenação
