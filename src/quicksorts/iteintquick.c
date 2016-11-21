@@ -1,38 +1,13 @@
 #include "iteintquick.h"
-
-void particao(TLista *lista, int *i, int *j){
-	TItem pivo, aux;
-	int b;
-	*i = lista->esq;
-	*j = lista->dir;
-	pivo = lista->itens[(*i+*j)/2];
-	do {
-		while (pivo.chave > lista->itens[*i].chave) {
-			(*i)++;
-		}
-		while (pivo.chave < lista->itens[*j].chave) {
-			(*j)--;
-		}
-		if (*i <= *j) {
-			aux = lista->itens[*i];
-			lista->itens[*i] = lista->itens[*j];
-			lista->itens[*j] = aux;
-			(*i)++;
-			(*j)--;
-        }
-
-	} while (*i <= *j);
-
-}
-
-void ordena(TLista *lista){
+void ite_int_ordena(TLista *lista){
+    int teste = 0;
     int i, j, top = 0;
-	int *stack;
-	stack = (int*)malloc(lista->dir*(4)*sizeof(int));
+    int *stack;
+    stack = (int*)malloc(lista->dir*(4)*sizeof(int));
     particao(lista, &i,&j);
     //VERIFICA A ORDEM EM QUE DEVE SER EMPILHADA.
     //A MAIOR PARTIÇÃO É EMPILHADA PRIMEIRO
-    if((j - lista->esq) >= ( lista->dir - i)){// VERIFICA SE A DIREITA É MENOR QUE A PARTIÇÃO DA ESQUEDA
+    if((j - lista->esq) >= ( lista->dir - i)){// VERIFICA SE A DIREITA É MENOR QUE A PARTIÇÃO DA ESQUERDA
         stack[top++] = lista->esq; // CASO SIM, EMPILHA PRIMEIRO A ROTA DA ESQUEDA
         stack[top++] = j; // LIMITADA POR ESQ - J
         stack[top++] = i; // DEPOIS EMPILHA A MENOR ROTA, LIMITADA POR I - DIR
@@ -48,6 +23,14 @@ void ordena(TLista *lista){
         lista->dir = stack[top--]; //PEGA O TOPO DO PILHA, OU SEJA, A ROTA DA DIREITA
         lista->esq = stack[top--]; // PEGA O SEGUNDO TOPO, OU SEJA, A ROTA DA ESQUEDA
         particao(lista, &i, &j); // PARTICONA A MENOR ROTA
+	/*
+	if(teste){
+		lista->dir = stack[top--]; //PEGA O TOPO DO PILHA, OU SEJA, A ROTA DA DIREITA
+		lista->esq = stack[top--]; // PEGA O SEGUNDO TOPO, OU SEJA, A ROTA DA ESQUEDA
+		particao(lista, &i, &j); // PARTICONA A MENOR ROTA
+		teste = 0;
+	}
+	*/
         if((j - lista->esq) >= ( lista->dir - i)){ // VERIFICA SE A ROTA PARTICONADA É MAIOR NA ESQUERDA OU DIREITA
             if(i == lista->dir && j != lista->esq ){ // SE A DERITA CHEGOU AO FINAL, MAS TEM ELEMENTOS NA ESQUERDA
                 stack[++top] = lista->esq; // EMPLIHA A ROTA LIMITADA PELA ESQUERDA E J
@@ -73,6 +56,7 @@ void ordena(TLista *lista){
                 stack[++top] = lista->dir;
                 stack[++top] = lista->esq; // EMPILHA A ROTA DA ESQUERDA MENOR, LIMITADA PELA ESQ - J
                 stack[++top] = j;
+		teste = 1;
             }
         }
 	}while(top>0); // ENQUANTO HOUVER ELEMENTOS NA PILHA CONTINUA O LOOP.
