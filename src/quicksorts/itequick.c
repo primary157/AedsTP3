@@ -1,27 +1,4 @@
 #include "itequick.h"
-/*
-void particao(TLista *lista, int *i, int *j){
-	TItem pivo, aux;
-	*i = lista->esq;
-	*j = lista->dir;
-	pivo = lista->itens[(*i+*j)/2];
-	do {
-		while (pivo.chave > lista->itens[*i].chave) {
-			(*i)++;
-		}
-		while (pivo.chave < lista->itens[*j].chave) {
-			(*j)--;
-		}
-		if (*i <= *j) {
-			aux = lista->itens[*i];
-			lista->itens[*i] = lista->itens[*j];
-			lista->itens[*j] = aux;
-			(*i)++;
-			(*j)--;
-		}
-	} while (*i <= *j);
-}
-*/
 void it_ordena(TLista *lista){
 	int i, j;
 
