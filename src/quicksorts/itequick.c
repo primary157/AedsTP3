@@ -23,34 +23,32 @@ void particao(TLista *lista, int *i, int *j){
 }
 */
 void it_ordena(TLista *lista){
-	int i, j, k = 0;
-	int *vecEsq, *vecDir;
-	vecEsq = (int*)malloc(lista->dir*sizeof(int));
-	vecDir = (int*)malloc(lista->dir*sizeof(int));
-	do{
-		particao(lista, &i, &j); // divide a primeira partição em esq e dir
-		vecEsq[k] = i; //quarda os valores onde foi quebrado na esqueda
-		vecDir[k] = lista->dir; // guarda os valores onde foi quedrado na direita
-		k++;
-		lista->dir = j; // a direita recebe o ultimo valor de j...
-	}while(j>0); // vai percorrer sempre a esqueda enquanto o j não tiver chegado ao final
-	k--;// desincrementa 1 no contador para não pegar lixo;
-	// fará o próximo while, de trás para frente percorrendo o vertor de liitações de direita e esquerda
-	while(k>=0){ // enquando houver limitações nos vetores de esq e dir faz
-		lista->esq = vecEsq[k]; // esqueda pega a parte limita pela esqueda onde ainda não foi particionada
-		lista->dir = vecDir[k]; // direita recebe a parte limitada pea direita que ainda não foi particionada
-		particao(lista, &i, &j); // particiona a área delimitada
-		while(j>lista->esq){
-		 // se o j, não tiver atingindo o valor da esqueda quer dizer que há vetores a
-		// serem percorridos na esqueda, logo como o while de cima ele percorre sempre à esquerda
-		    particao(lista, &i, &j); // particona e quarda as limitações caso haja vetores à direita ainda não particionados.
-		    vecEsq[k] = i;
-		    vecDir[k] = lista->dir;
-		    k++; // incrementa o contador dizendo que há mais partições a seres reparticionadas.
-		    lista->dir = j;
-		}
-        	k--; // desincrementa o contador de limitações;
-	}
-	free(vecEsq);
-	free(vecDir);
+	int i, j;
+
+	TPilha p;
+	iniPilha(&p, lista->dir);
+
+    particao(lista, &i,&j);
+    empilha(&p, lista->esq); //empilha primeiro a partição esqueda
+    empilha(&p, j);
+    empilha(&p, i); // logo a da direita é processada primeiro nesse caso. 
+    empilha(&p, lista->dir);
+    do{
+        lista->dir = desempilha(&p); // desempilha a partição limitado por esqueda e direita
+        lista->esq = desempilha(&p);
+        particao(lista,&i,&j);
+        if(i<lista->dir && j>lista->esq){ // verifica se não chegou ao final de nenhum lado da lista
+            empilha(&p, lista->esq); // logo empilha a partição da direita e esqueda
+            empilha(&p, j);
+            empilha(&p, i);
+            empilha(&p, lista->dir);
+        }else if(i<lista->dir){ // verifica se chegou ao final da lista na esqueda
+            empilha(&p, i); // logo empilha apenas a partição da direita já que a esquerda chegou ao final
+            empilha(&p, lista->dir);
+        }else if(j>lista->esq){ // verifica se chegou ao final da lista na direita
+            empilha(&p, lista->esq); // logo empilha apenas a partição da esqueda, já que a direita chegou ao final
+            empilha(&p, j);
+        }// caso contrário, direita e esqueda tiver chegado ao final, não fz nada
+    }while(p.top > 0); // enquanto houverem partições continua particionando ou desempilhando. 
+    destroyTPilha(&p);
 }
