@@ -1,6 +1,6 @@
 #include "iteintquick.h"
 
-void ordena(TLista *lista){
+void it_int_ordena(TLista *lista){
         int i, j;
 	TPilha p;
 	iniPilha(&p, lista->dir);
