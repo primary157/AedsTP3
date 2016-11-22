@@ -3,6 +3,7 @@
 
 #include "lista.h"
 #include "recquick.h"
+#include "pilha.h"
 
 //void particao(TLista *lista, int *i, int *j); //iteradores i e j são criados dentro de ordena!!
 void it_ordena(TLista *lista);
