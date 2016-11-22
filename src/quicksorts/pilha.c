@@ -3,7 +3,7 @@
 void iniPilha(TPilha* p, int tam){
     p->top = 0;
     p->tam = tam;
-    p->vecI = (int*)malloc((tam*2)*sizeof(int));
+    p->vecI = (int*)malloc((tam*4)*sizeof(int));
 }
 int empilha(TPilha* p, int a){
     if(p->top == p->tam)
