@@ -6,5 +6,5 @@
 #include "pilha.h"
 
 //void particao(TLista *lista, int *i, int *j); //iteradores i e j são criados dentro de ordena!!
-void ordena(TLista *lista);
+void it_int_ordena(TLista *lista);
 #endif
