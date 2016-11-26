@@ -98,14 +98,12 @@ int main(int argc, const char *argv[]){
 					
 					time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 1",time_aux);
 					//QuickSort 2
-					printf("Aqui\n");
 					reinitTLista(&lista_aux,itens,n_input[0]);
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 2
 					med_ordena(&lista_aux);
 
 					time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 2",time_aux);
 					//QuickSort 3
-					printf("Aqui\n");
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 3
 					ins_ordena(&lista_aux);
@@ -147,14 +145,12 @@ int main(int argc, const char *argv[]){
 							
 						time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 1",time_aux);
 						//QuickSort 2
-						printf("Aqui\n");
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 2
 						med_ordena(&lista_aux);
 
 						time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 2",time_aux);
 						//QuickSort 3
-						printf("Aqui\n");
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 3
 						ins_ordena(&lista_aux);
