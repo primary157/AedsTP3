@@ -3,6 +3,9 @@
 #include "../quicksorts/itequick.h"
 #include "../quicksorts/medquick.h"
 #include "../quicksorts/insquick.h"
+#include "../heapsorts/heapsort.h"
+#include "../quicksorts/recintquick.h"
+#include "../quicksorts/iteintquick.h"
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
@@ -112,6 +115,7 @@ int main(int argc, const char *argv[]){
 					//QuickSort 4
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 4
+					rec_int_ordena(&lista_aux);
 
 					time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 4",time_aux);
 					//QuickSort 5
@@ -123,8 +127,15 @@ int main(int argc, const char *argv[]){
 					//QuickSort 6
 					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
 					// usar funcao ordena(&lista_aux); referente ao QuickSort 6
+					it_int_ordena(&lista_aux);
 
 					time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 6",time_aux);
+					//HeapSort
+					reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
+					// usar funcao ordena(&lista_aux); referente ao HeapSort
+					heapSort(&lista_aux);
+
+					time_aux = printaTempoDecorrido(&resources,outputfile,"HeapSort",time_aux);
 					//Fim do calculo de tempo de ordenação
 
 					for (i = 1; i < qntd_n_input; i++) {
@@ -159,6 +170,7 @@ int main(int argc, const char *argv[]){
 						//QuickSort 4
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 4
+						rec_int_ordena(&lista_aux);
 
 						time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 4",time_aux);
 						//QuickSort 5
@@ -170,8 +182,15 @@ int main(int argc, const char *argv[]){
 						//QuickSort 6
 						reinitTLista(&lista_aux,itens,n_input[i]);
 						// usar funcao ordena(&lista_aux); referente ao QuickSort 6
+						it_int_ordena(&lista_aux);
 
 						time_aux = printaTempoDecorrido(&resources,outputfile,"QuickSort 6",time_aux);
+						//HeapSort
+						reinitTLista(&lista_aux,itens,n_input[0]);	//reseto lista para estado inicial
+						// usar funcao ordena(&lista_aux); referente ao HeapSort
+						heapSort(&lista_aux);
+
+						time_aux = printaTempoDecorrido(&resources,outputfile,"HeapSort",time_aux);
 						//Fim do calculo de tempo de ordenação
 					}
 					free(itens);								//Desaloca espaço de itens
