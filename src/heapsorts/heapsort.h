@@ -4,9 +4,5 @@
 void heapSort(TLista *lista);
 void refaz(TLista *lista);
 void constroi(TLista *lista);
-//Realmente necessários?
-int retiraMax(TLista *lista, TItem *iMax);
-int aumentaChave(int i, int nova_chave, TLista *lista);
-void insere(TLista *lista,TItem item);
 
 #endif
