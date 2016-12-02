@@ -135,7 +135,7 @@ int main(int argc, const char *argv[]){
 					// usar funcao ordena(&lista_aux); referente ao HeapSort
 					heapSort(&lista_aux);
 
-					time_aux = printaTempoDecorrido(&resources,outputfile,"HeapSort",time_aux);
+					time_aux = printaTempoDecorrido(&resources,outputfile,"HeapSort 1",time_aux);
 					//Fim do calculo de tempo de ordenação
 
 					for (i = 1; i < qntd_n_input; i++) {
@@ -190,7 +190,7 @@ int main(int argc, const char *argv[]){
 						// usar funcao ordena(&lista_aux); referente ao HeapSort
 						heapSort(&lista_aux);
 
-						time_aux = printaTempoDecorrido(&resources,outputfile,"HeapSort",time_aux);
+						time_aux = printaTempoDecorrido(&resources,outputfile,"HeapSort 1",time_aux);
 						//Fim do calculo de tempo de ordenação
 					}
 					free(itens);								//Desaloca espaço de itens
